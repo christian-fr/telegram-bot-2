@@ -2,11 +2,6 @@ with open(r'token', 'r') as f:
     token = f.readline()
     # print(token)
 
-import os
-from telegram.ext import Updater
-from telegram.ext import filters
-
-
 updater = Updater(token=token, use_context=True)
 
 dispatcher = updater.dispatcher
