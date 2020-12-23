@@ -2,7 +2,7 @@ import codecs
 import os
 import datetime
 import cairosvg
-
+import errno
 
 
 def datetime_from_unix_timestamp(unix_timestamp):
@@ -91,13 +91,14 @@ class ForecastRenderer:
         self.svg_template_file = svg_template_file
         assert isinstance(weather_forecast_object, WeatherForecastObject)
         if forecast_output_path is None:
-            forecast_output_path = 'output'
+            forecast_output_path = os.path.join(os.getcwd(), 'output')
         self.svg_template = self.init_svg()
         self.weather_forecast_object = weather_forecast_object
         self.dates = list(weather_forecast_object.daily_forecasts_dict.keys())
         self.dates.sort()
         self.day_one = str(self.dates[0])
         self.svg_modified = self.process_svg(self.svg_template)
+        self.prepare_output_folder(str(os.path.join(os.getcwd(), 'output')))
         self.write_svg(self.svg_modified, os.path.join(forecast_output_path, forecast_output_filename))
         self.convert_svg_into_png(os.path.join(forecast_output_path, forecast_output_filename))
 
@@ -136,6 +137,20 @@ class ForecastRenderer:
         svg_template = svg_template.replace('LOW_FOUR', str(round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[3]].temp_min))))
 
         return svg_template
+
+    @staticmethod
+    def prepare_output_folder(output_folder):
+        pass
+        try:
+            os.mkdir(output_folder)
+            print('"' + output_folder + '" created.')
+        except OSError as exc:
+            print('folder could not be created at first attempt: ' + output_folder)
+            if exc.errno == errno.EEXIST and os.path.isdir(output_folder):
+                print('folder exists already: ' + output_folder)
+                pass
+            else:
+                raise OSError('folder could not be created')
 
     @staticmethod
     def write_svg(output_data, output_file):
