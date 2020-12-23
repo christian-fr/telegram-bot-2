@@ -85,9 +85,8 @@ class DailyForecastObject:
 
 
 class ForecastRenderer:
-    def __init__(self, svg_template_file, weather_forecast_object, svg_icon_path,
+    def __init__(self, svg_template_file, weather_forecast_object,
                  forecast_output_filename='forecast_output.svg', forecast_output_path=None):
-        assert os.path.exists(svg_icon_path)
         assert os.path.exists(svg_template_file)
         self.svg_template_file = svg_template_file
         assert isinstance(weather_forecast_object, WeatherForecastObject)

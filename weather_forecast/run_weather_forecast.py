@@ -36,6 +36,5 @@ weather_forecast_object = weather_forecast.ForecastRenderer.WeatherForecastObjec
 
 weather_forecast_renderer = weather_forecast.ForecastRenderer.ForecastRenderer(
     svg_template_file=svg_template_file,
-    weather_forecast_object=weather_forecast_object,
-    svg_icon_path=svg_path)
+    weather_forecast_object=weather_forecast_object)
 pass
