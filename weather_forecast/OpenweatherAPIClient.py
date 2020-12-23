@@ -1,7 +1,9 @@
-# https://blog.seamlesscloud.io/2020/09/be-prepared-for-bad-weather-using-20-lines-of-python/
-
-# icons rendering - kindleb
-# https://mpetroff.net/2012/09/kindle-weather-display/
+__author__ = "Christian Friedrich"
+__maintainer__ = "Christian Friedrich"
+__license__ = "MIT"
+__version__ = "0.0.1"
+__status__ = "Prototype"
+__name__ = "OpenWeatherAPIClient"
 
 import requests
 import json
@@ -15,4 +17,3 @@ class OpenWeatherAPICLient:
             f'http://api.openweathermap.org/data/2.5/onecall?lon={longitude_str}&lat={latitude_str}&appid={weather_api_key}&units=metric')
         self.resp_current_dict = json.loads(self.resp_current.text)
         self.resp_onecall_forecast_dict = json.loads(self.resp_onecall_forecast.text)
-

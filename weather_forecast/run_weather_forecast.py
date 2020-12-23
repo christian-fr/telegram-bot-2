@@ -1,3 +1,10 @@
+__author__ = "Christian Friedrich"
+__maintainer__ = "Christian Friedrich"
+__license__ = "MIT"
+__version__ = "0.0.1"
+__status__ = "Prototype"
+__name__ = "WeatherForeCastCreator"
+
 import json
 import os
 
@@ -37,4 +44,3 @@ weather_forecast_object = weather_forecast.ForecastRenderer.WeatherForecastObjec
 weather_forecast_renderer = weather_forecast.ForecastRenderer.ForecastRenderer(
     svg_template_file=svg_template_file,
     weather_forecast_object=weather_forecast_object)
-pass

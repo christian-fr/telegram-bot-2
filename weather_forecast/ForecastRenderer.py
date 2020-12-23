@@ -1,3 +1,11 @@
+__author__ = "Christian Friedrich"
+__maintainer__ = "Christian Friedrich"
+__license__ = "MIT"
+__version__ = "0.0.1"
+__status__ = "Prototype"
+__name__ = "ForeCastRenderer"
+
+
 import codecs
 import os
 import datetime
@@ -10,11 +18,7 @@ def datetime_from_unix_timestamp(unix_timestamp):
     return datetime.datetime.utcfromtimestamp(unix_timestamp)
 
 
-def icon_matching_openweather_map(input_icon_code, detailed_weather_code=None):
-    matching_dict_ext = {'01d': 'skc.svg', '02d': 'few.svg', '03d': 'sct.svg', '04d': 'bkn.svg', '09d': 'shra.svg',
-                     '10d': 'ra.svg', '11d': 'tsra.svg', '13d': 'sn.svg', '50d': 'mist.svg', '01n': 'skc.svg',
-                     '02n': 'few.svg', '03n': 'sct.svg', '04n': 'bkn.svg', '09n': 'shra.svg', '10n': 'ra.svg',
-                     '11n': 'tsra.svg', '13n': 'sn.svg', '50n': 'mist.svg'}
+def icon_matching_openweather_map(input_icon_code):
     matching_dict = {'01d': 'skc', '02d': 'few', '03d': 'sct', '04d': 'bkn', '09d': 'shra',
                      '10d': 'ra', '11d': 'tsra', '13d': 'sn', '50d': 'mist', '01n': 'skc',
                      '02n': 'few', '03n': 'sct', '04n': 'bkn', '09n': 'shra', '10n': 'ra',
@@ -30,7 +34,8 @@ class WeatherForecastObject:
         self.daily_forecasts_dict = self.create_dict_for_daily_forecast(
             openweather_daily_response.resp_onecall_forecast_dict)
 
-    def create_dict_for_daily_forecast(self, response):
+    @staticmethod
+    def create_dict_for_daily_forecast(response):
         if 'daily' not in response:
             raise KeyError('Response dict has no key "daily"!')
         else:
@@ -115,26 +120,47 @@ class ForecastRenderer:
         weekday_dict = {0: 'Mo', 1: 'Di', 2: 'Mi', 3: 'Do', 4: 'Fr', 5: 'Sa', 6: 'So'}
 
         # # Insert icons and temperatures
-        svg_template = svg_template.replace('ICON_ONE', self.weather_forecast_object.daily_forecasts_dict[self.dates[0]].weather_icon_svg)
-        svg_template = svg_template.replace('ICON_TWO', self.weather_forecast_object.daily_forecasts_dict[self.dates[1]].weather_icon_svg)
-        svg_template = svg_template.replace('ICON_THREE', self.weather_forecast_object.daily_forecasts_dict[self.dates[2]].weather_icon_svg)
-        svg_template = svg_template.replace('ICON_FOUR', self.weather_forecast_object.daily_forecasts_dict[self.dates[3]].weather_icon_svg)
+        svg_template = svg_template.replace('ICON_ONE', self.weather_forecast_object.daily_forecasts_dict[
+            self.dates[0]].weather_icon_svg)
+        svg_template = svg_template.replace('ICON_TWO', self.weather_forecast_object.daily_forecasts_dict[
+            self.dates[1]].weather_icon_svg)
+        svg_template = svg_template.replace('ICON_THREE', self.weather_forecast_object.daily_forecasts_dict[
+            self.dates[2]].weather_icon_svg)
+        svg_template = svg_template.replace('ICON_FOUR', self.weather_forecast_object.daily_forecasts_dict[
+            self.dates[3]].weather_icon_svg)
 
-        svg_template = svg_template.replace('DAY_TWO', weekday_dict[self.weather_forecast_object.daily_forecasts_dict[self.dates[1]].date.weekday()] + ' ' + self.weather_forecast_object.daily_forecasts_dict[self.dates[1]].date.strftime('%d.%m.'))
-        svg_template = svg_template.replace('DAY_THREE', weekday_dict[self.weather_forecast_object.daily_forecasts_dict[self.dates[2]].date.weekday()] + ' ' + self.weather_forecast_object.daily_forecasts_dict[self.dates[2]].date.strftime('%d.%m.'))
-        svg_template = svg_template.replace('DAY_FOUR', weekday_dict[self.weather_forecast_object.daily_forecasts_dict[self.dates[3]].date.weekday()] + ' ' + self.weather_forecast_object.daily_forecasts_dict[self.dates[3]].date.strftime('%d.%m.'))
+        svg_template = svg_template.replace('DAY_TWO', weekday_dict[
+            self.weather_forecast_object.daily_forecasts_dict[self.dates[1]].date.weekday()] + ' ' +
+                                            self.weather_forecast_object.daily_forecasts_dict[
+                                                self.dates[1]].date.strftime('%d.%m.'))
+        svg_template = svg_template.replace('DAY_THREE', weekday_dict[
+            self.weather_forecast_object.daily_forecasts_dict[self.dates[2]].date.weekday()] + ' ' +
+                                            self.weather_forecast_object.daily_forecasts_dict[
+                                                self.dates[2]].date.strftime('%d.%m.'))
+        svg_template = svg_template.replace('DAY_FOUR', weekday_dict[
+            self.weather_forecast_object.daily_forecasts_dict[self.dates[3]].date.weekday()] + ' ' +
+                                            self.weather_forecast_object.daily_forecasts_dict[
+                                                self.dates[3]].date.strftime('%d.%m.'))
 
-        svg_template = svg_template.replace('HIGH_ONE', str(round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[0]].temp_max))))
-        svg_template = svg_template.replace('LOW_ONE', str(round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[0]].temp_min))))
+        svg_template = svg_template.replace('HIGH_ONE', str(
+            round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[0]].temp_max))))
+        svg_template = svg_template.replace('LOW_ONE', str(
+            round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[0]].temp_min))))
 
-        svg_template = svg_template.replace('HIGH_TWO', str(round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[1]].temp_max))))
-        svg_template = svg_template.replace('LOW_TWO', str(round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[1]].temp_min))))
+        svg_template = svg_template.replace('HIGH_TWO', str(
+            round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[1]].temp_max))))
+        svg_template = svg_template.replace('LOW_TWO', str(
+            round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[1]].temp_min))))
 
-        svg_template = svg_template.replace('HIGH_THREE', str(round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[2]].temp_max))))
-        svg_template = svg_template.replace('LOW_THREE', str(round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[2]].temp_min))))
+        svg_template = svg_template.replace('HIGH_THREE', str(
+            round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[2]].temp_max))))
+        svg_template = svg_template.replace('LOW_THREE', str(
+            round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[2]].temp_min))))
 
-        svg_template = svg_template.replace('HIGH_FOUR', str(round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[3]].temp_max))))
-        svg_template = svg_template.replace('LOW_FOUR', str(round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[3]].temp_min))))
+        svg_template = svg_template.replace('HIGH_FOUR', str(
+            round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[3]].temp_max))))
+        svg_template = svg_template.replace('LOW_FOUR', str(
+            round(int(self.weather_forecast_object.daily_forecasts_dict[self.dates[3]].temp_min))))
 
         return svg_template
 
@@ -164,6 +190,3 @@ class ForecastRenderer:
         if output_filename is None:
             output_filename = os.path.splitext(input_filename)[0] + '.png'
         cairosvg.svg2png(url=input_filename, write_to=output_filename)
-
-
-# 'weather-script-preprocess.svg'
