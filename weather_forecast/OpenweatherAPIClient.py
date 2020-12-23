@@ -4,6 +4,7 @@
 # https://mpetroff.net/2012/09/kindle-weather-display/
 
 import requests
+import json
 
 
 class OpenWeatherAPICLient:
