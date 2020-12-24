@@ -17,3 +17,5 @@ class OpenWeatherAPICLient:
             f'http://api.openweathermap.org/data/2.5/onecall?lon={longitude_str}&lat={latitude_str}&appid={weather_api_key}&units=metric')
         self.resp_current_dict = json.loads(self.resp_current.text)
         self.resp_onecall_forecast_dict = json.loads(self.resp_onecall_forecast.text)
+        self.resp_onecall_forecast_dict['latitude_str'] = latitude_str
+        self.resp_onecall_forecast_dict['longitude_str'] = longitude_str

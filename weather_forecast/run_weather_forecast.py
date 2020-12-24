@@ -39,7 +39,8 @@ openweather_forecast_object = weather_forecast.OpenweatherAPIClient.OpenWeatherA
     longitude_str=LONGITUDE,
     city_id_str=CITY_ID)
 
-weather_forecast_object = weather_forecast.ForecastRenderer.WeatherForecastObject(openweather_forecast_object)
+weather_forecast_object = weather_forecast.ForecastRenderer.WeatherForecastObject(
+    openweather_daily_response=openweather_forecast_object, longitude_str=LONGITUDE, latitude_str=LATITUDE)
 
 weather_forecast_renderer = weather_forecast.ForecastRenderer.ForecastRenderer(
     svg_template_file=svg_template_file,
