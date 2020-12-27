@@ -1,8 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# pylint: disable=W0613, C0116
-# type: ignore[union-attr]
-# This program is dedicated to the public domain under the CC0 license.
+
+__author__ = "Christian Friedrich"
+__maintainer__ = "Christian Friedrich"
+__license__ = "MIT"
+__version__ = "0.0.1"
+__status__ = "Prototype"
+__name__ = "TelegramBot"
+
+
 
 with open(r'token', 'r') as f:
     token = f.readline().strip()
@@ -109,7 +115,7 @@ def photo(update: Update, context: CallbackContext) -> int:
     photo_file.download('background.jpg')
     logger.info("Picture uploaded!")
     tmp_text = user.first_name
-    overlay_text(filename='background.jpg', overlay_text_string=tmp_text)
+    overlay_text(filename='../background.jpg', overlay_text_string=tmp_text)
     update_wallpaper()
 
     update.message.reply_text(
@@ -124,7 +130,7 @@ def description(update: Update, context: CallbackContext) -> int:
     logger.info("notes: %s, user: %s", update.message.text, user.first_name)
     tmp_text = user.first_name + ': ' + update.message.text
     update.message.reply_text('Notes successfully added.')
-    overlay_text(filename='background.jpg', overlay_text_string=tmp_text)
+    overlay_text(filename='../background.jpg', overlay_text_string=tmp_text)
     update_wallpaper()
     return ConversationHandler.END
 
