@@ -8,11 +8,8 @@ __version__ = "0.0.1"
 __status__ = "Prototype"
 __name__ = "TelegramBot"
 
-
-
 with open(r'token', 'r') as f:
     token = f.readline().strip()
-
 
 """
 First, a few callback functions are defined. Then, those functions are passed to
@@ -48,6 +45,7 @@ from telegram.ext import (
     CallbackContext,
 )
 
+import overlay_image_renderer.OverlayImageRenderer
 
 # Enable logging
 logging.basicConfig(
@@ -65,36 +63,36 @@ def datetime_string():
     return dt_string
 
 
-def overlay_text(filename, overlay_text_string):
-    assert isinstance(overlay_text_string, str) and isinstance(filename, str)
-    # font_fname = r'C:\Windows\Fonts\SEGUIEMJ.ttf'
-    # font_fname = '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc'
-    # font_fname = '/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf'
-    font_fname = '/home/christian/seguiemj.ttf'
-    image1 = Image.open(filename)
-    w, h = image1.size
-    logger.info("width: {0}px, height: {1}px of uploaded picture".format(str(w), str(h)))
-    font_size = round(min(w/20, h/20))
-    logger.info("font size: " + str(font_size))
-
-    draw = ImageDraw.Draw(image1)
-
-    font = ImageFont.truetype(font_fname, font_size)
-
-    textcolor = "rgb(0, 0, 0)"
-    shadowcolor = "rgb(255, 255, 255)"
-    draw_x = round(w/80)
-    logger.info("draw_x: " + str(draw_x))
-    draw_y = round(h-1.5*font_size)
-    logger.info("draw_y: " + str(draw_y))
-    logger.info("text position: {0}px, {1}px".format(draw_x, draw_y))
-    draw.text((draw_x-1, draw_y), overlay_text_string, font=font, fill=shadowcolor)
-    draw.text((draw_x+1, draw_y), overlay_text_string, font=font, fill=shadowcolor)
-    draw.text((draw_x, draw_y-1), overlay_text_string, font=font, fill=shadowcolor)
-    draw.text((draw_x, draw_y+1), overlay_text_string, font=font, fill=shadowcolor)
-    draw.text((draw_x, draw_y), overlay_text_string, font=font, fill=textcolor)
-    image1.save(datetime_string() + '.jpg')
-    image1.save('background.jpg')
+# def overlay_text(filename, overlay_text_string):
+#     assert isinstance(overlay_text_string, str) and isinstance(filename, str)
+#     # font_fname = r'C:\Windows\Fonts\SEGUIEMJ.ttf'
+#     # font_fname = '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc'
+#     # font_fname = '/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf'
+#     font_fname = '/home/christian/seguiemj.ttf'
+#     image1 = Image.open(filename)
+#     w, h = image1.size
+#     logger.info("width: {0}px, height: {1}px of uploaded picture".format(str(w), str(h)))
+#     font_size = round(min(w/20, h/20))
+#     logger.info("font size: " + str(font_size))
+#
+#     draw = ImageDraw.Draw(image1)
+#
+#     font = ImageFont.truetype(font_fname, font_size)
+#
+#     textcolor = "rgb(0, 0, 0)"
+#     shadowcolor = "rgb(255, 255, 255)"
+#     draw_x = round(w/80)
+#     logger.info("draw_x: " + str(draw_x))
+#     draw_y = round(h-1.5*font_size)
+#     logger.info("draw_y: " + str(draw_y))
+#     logger.info("text position: {0}px, {1}px".format(draw_x, draw_y))
+#     draw.text((draw_x-1, draw_y), overlay_text_string, font=font, fill=shadowcolor)
+#     draw.text((draw_x+1, draw_y), overlay_text_string, font=font, fill=shadowcolor)
+#     draw.text((draw_x, draw_y-1), overlay_text_string, font=font, fill=shadowcolor)
+#     draw.text((draw_x, draw_y+1), overlay_text_string, font=font, fill=shadowcolor)
+#     draw.text((draw_x, draw_y), overlay_text_string, font=font, fill=textcolor)
+#     image1.save(datetime_string() + '.jpg')
+#     image1.save('background.jpg')
 
 def update_wallpaper():
     call(['bash', '-c', "'/home/christian/lubuntu-wp-changer'"])
@@ -115,7 +113,8 @@ def photo(update: Update, context: CallbackContext) -> int:
     photo_file.download('background.jpg')
     logger.info("Picture uploaded!")
     tmp_text = user.first_name
-    overlay_text(filename='../background.jpg', overlay_text_string=tmp_text)
+    overlay_image_renderer.OverlayImageRenderer.overlay_text(background_image_filename='../background.jpg',
+                                                             overlay_text_string=tmp_text)
     update_wallpaper()
 
     update.message.reply_text(
@@ -130,7 +129,8 @@ def description(update: Update, context: CallbackContext) -> int:
     logger.info("notes: %s, user: %s", update.message.text, user.first_name)
     tmp_text = user.first_name + ': ' + update.message.text
     update.message.reply_text('Notes successfully added.')
-    overlay_text(filename='../background.jpg', overlay_text_string=tmp_text)
+    overlay_image_renderer.OverlayImageRenderer.overlay_text(background_image_filename='../background.jpg',
+                                                             overlay_text_string=tmp_text)
     update_wallpaper()
     return ConversationHandler.END
 
