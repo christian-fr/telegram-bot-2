@@ -11,8 +11,6 @@ import os
 import weather_forecast.ForecastRenderer
 import weather_forecast.OpenweatherAPIClient
 
-svg_path = os.path.join(os.getcwd(), 'icons')
-# svg_template_file = os.path.join(os.getcwd(), 'svg_template/weather-script-preprocess.svg')
 svg_template_file = os.path.join(os.getcwd(), 'svg_template/weather-script-preprocess_inverted.svg')
 
 key_file = os.path.join(os.getcwd(), 'openweather_api_key.txt')

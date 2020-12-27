@@ -141,10 +141,6 @@ def overlay_text(background_image_filename, overlay_text_string, overlay_image_f
     empty_background_end_size.save('test2.png')
     print('done')
 
-
-
-
-
     background_image.save(os.path.join(os.path.split(background_image_filename)[0], 'background.jpg'))
     background_image.save(os.path.join(os.path.split(background_image_filename)[0],
                              datetime_string() + '_' + os.path.split(background_image_filename)[1]))
@@ -157,17 +153,17 @@ def update_wallpaper():
 # update_wallpaper()
 
 
-if __name__ == '__main__':
-    overlay_text(background_image_filename=os.path.join(os.getcwd(), 'pictures', 'JF4_011336.jpg'),
-                 overlay_text_string='xxx',
-                 overlay_image_filename=os.path.join(os.getcwd(), 'weather_forecast', 'output', 'forecast_output.png'))
-
-else:
-    overlay_text(background_image_filename='/home/a/PycharmProjects/telegram-bot/pictures/JF4_011336.jpg',
-                 overlay_text_string='xxx',
-                 overlay_image_filename='/home/a/PycharmProjects/telegram-bot/weather_forecast/output/forecast_output.png')
-
-
+# if __name__ == '__main__':
+#     overlay_text(background_image_filename=os.path.join(os.getcwd(), 'pictures', 'JF4_011336.jpg'),
+#                  overlay_text_string='xxx',
+#                  overlay_image_filename=os.path.join(os.getcwd(), 'weather_forecast', 'output', 'forecast_output.png'))
+#
+# else:
+#     overlay_text(background_image_filename='/home/a/PycharmProjects/telegram-bot/pictures/JF4_011336.jpg',
+#                  overlay_text_string='xxx',
+#                  overlay_image_filename='/home/a/PycharmProjects/telegram-bot/weather_forecast/output/forecast_output.png')
+#
+#
 
 
 
