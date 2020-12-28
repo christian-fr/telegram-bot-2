@@ -2,8 +2,8 @@
 # import sys
 import os
 from pathlib import Path
-# import logging
 import logging.config
+from subprocess import call
 
 config_filename = Path(os.path.abspath(os.path.join(os.path.dirname(__file__), 'config', 'logger.config')))
 assert config_filename.exists()
