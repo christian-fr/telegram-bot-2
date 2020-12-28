@@ -25,6 +25,11 @@ from overlayImageRenderer import OverlayImageRenderer
 
 # set output path / get an absolute path
 output_path = os.path.abspath(os.path.join(os.path.dirname(__file__), './output'))
+pictures_path = os.path.abspath(os.path.join(os.path.dirname(__file__), './pictures'))
 
 if __name__ == '__main__':
     pass
+    OverlayImageRenderer.overlay_text(background_image_filename=pictures_path + 'background.png',
+                 overlay_text_string='xxx',
+                 overlay_image_filename='/home/a/PycharmProjects/telegram-bot/weatherForecast/output/forecast_output.png')
+

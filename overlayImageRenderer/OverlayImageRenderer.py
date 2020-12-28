@@ -152,17 +152,13 @@ def overlay_text(background_image_filename, overlay_text_string, overlay_image_f
 def update_wallpaper():
     call(['bash', '-c', "'/home/pi/lubuntu-wp-changer'"])
 
-# update_wallpaper()
 
-
-# if __name__ == '__main__':
-#     overlay_text(background_image_filename=os.path.join(os.getcwd(), 'pictures', 'JF4_011336.jpg'),
-#                  overlay_text_string='xxx',
-#                  overlay_image_filename=os.path.join(os.getcwd(), 'weatherForecast', 'output', 'forecast_output.png'))
-#
-# else:
-#     overlay_text(background_image_filename='/home/a/PycharmProjects/telegram-bot/pictures/JF4_011336.jpg',
-#                  overlay_text_string='xxx',
-#                  overlay_image_filename='/home/a/PycharmProjects/telegram-bot/weatherForecast/output/forecast_output.png')
-#
-#
+if __name__ == '__main__':
+    logger.error('Tried to run python script standalone - not yet implemented.')
+    raise NotImplementedError('running standalone is not yet implemented')
+    pass
+    # overlay_text(background_image_filename=os.path.join(os.getcwd(), 'pictures', 'JF4_011336.jpg'),
+    #              overlay_text_string='xxx',
+    #              overlay_image_filename=os.path.join(os.getcwd(), 'weatherForecast', 'output', 'forecast_output.png'))
+else:
+    pass
