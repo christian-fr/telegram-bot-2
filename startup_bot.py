@@ -26,9 +26,17 @@ from overlayImageRenderer import OverlayImageRenderer
 output_path = os.path.abspath(os.path.join(os.path.dirname(__file__), './output'))
 pictures_path = os.path.abspath(os.path.join(os.path.dirname(__file__), './pictures'))
 background_file = Path(pictures_path, 'background.png')
+wallpaper_changer_file = os.path.abspath(os.path.join(os.path.dirname(__file__), './wallpaper_changer.sh'))
+
+def update_wallpaper():
+    call(['bash', '-c', f"'{wallpaper_changer_file}'"])
+
+
 if __name__ == '__main__':
     pass
     OverlayImageRenderer.overlay_text(background_image_filename=Path(pictures_path, 'input.png'),
                                       overlay_text_string='xxx',
                                       overlay_image_filename=Path(output_path, 'forecast_output.png'),
                                       output_file=background_file)
+
+    update_wallpaper()
