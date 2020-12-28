@@ -5,4 +5,9 @@ export LATITUDE=""
 export LONGITUDE=""
 export CITY_ID=""
 
-/usr/bin/python3.6 startup_bot.py
+export FONT_FILE=""
+
+cd "$(dirname "$0")"
+
+kill_telegram-bot.sh
+/usr/bin/python3.6 startup_bot.py & echo "$!" > /tmp/telegram-bot.pid
