@@ -29,7 +29,8 @@ background_file = Path(pictures_path, 'background.png')
 wallpaper_changer_file = os.path.abspath(os.path.join(os.path.dirname(__file__), './wallpaper_changer.sh'))
 
 def update_wallpaper():
-    logger.info(f'changing wallpaper to: "{wallpaper_changer_file}"')
+    logger.info(f'walpaper changer script: "{wallpaper_changer_file}"')
+    logger.info(f'changing wallpaper to: "{background_file}"')
     call(['bash', '-c', f"'{wallpaper_changer_file}'", f"'{background_file}'"])
 
 
