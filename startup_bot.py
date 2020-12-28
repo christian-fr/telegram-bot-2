@@ -28,7 +28,7 @@ pictures_path = os.path.abspath(os.path.join(os.path.dirname(__file__), './pictu
 background_file = Path(pictures_path, 'background.png')
 if __name__ == '__main__':
     pass
-    OverlayImageRenderer.overlay_text(background_image_filename=Path(pictures_path, 'background.png'),
+    OverlayImageRenderer.overlay_text(background_image_filename=Path(pictures_path, 'input.png'),
                                       overlay_text_string='xxx',
                                       overlay_image_filename=Path(output_path, 'forecast_output.png'),
                                       output_file=background_file)

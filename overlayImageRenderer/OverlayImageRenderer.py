@@ -155,8 +155,9 @@ def overlay_text(background_image_filename, overlay_text_string, output_file, ov
     logger.info(f'Output file created: "{output_file}"')
 
     # background_image.save(os.path.join(os.path.split(background_image_filename)[0], 'background.jpg'))
-    # background_image.save(os.path.join(os.path.split(background_image_filename)[0],
-    #                                    datetime_string() + '_' + os.path.split(background_image_filename)[1]))
+
+    empty_background_end_size.save(os.path.join(os.path.split(background_image_filename)[0],
+                                                datetime_string() + '_' + os.path.split(background_image_filename)[1]))
 
 
 def update_wallpaper():
