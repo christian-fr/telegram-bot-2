@@ -40,3 +40,4 @@ if __name__ == '__main__':
                                       output_file=background_file)
 
     update_wallpaper()
+    exit()
