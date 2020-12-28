@@ -48,6 +48,7 @@ def overlay_text(background_image_filename, overlay_text_string, overlay_image_f
     draw_y = round(h - 1.5 * font_size)
     logger.info("draw_y: " + str(draw_y))
     logger.info("text position: {0}px, {1}px".format(draw_x, draw_y))
+
     # draw.text((draw_x-3, draw_y), overlay_text_string, font=font, fill=shadow_color)
     # draw.text((draw_x+3, draw_y), overlay_text_string, font=font, fill=shadow_color)
     # draw.text((draw_x, draw_y-3), overlay_text_string, font=font, fill=shadow_color)
