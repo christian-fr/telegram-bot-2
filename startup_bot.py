@@ -30,7 +30,7 @@ wallpaper_changer_file = os.path.abspath(os.path.join(os.path.dirname(__file__),
 
 def update_wallpaper():
     logger.info(f'changing wallpaper to: "{wallpaper_changer_file}"')
-    call(['bash', '-c', f"'{wallpaper_changer_file} {background_file}'"])
+    call(['bash', '-c', f"'{wallpaper_changer_file}'", f"'{background_file}'"])
 
 
 if __name__ == '__main__':
