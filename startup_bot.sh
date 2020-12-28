@@ -9,5 +9,5 @@ export FONT_FILE=""
 
 cd "$(dirname "$0")"
 
-kill_telegram-bot.sh
+./kill_bot.sh
 /usr/bin/python3.6 startup_bot.py & echo "$!" > /tmp/telegram-bot.pid
