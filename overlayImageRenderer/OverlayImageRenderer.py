@@ -27,10 +27,11 @@ def datetime_string():
     return dt_string
 
 
-def overlay_text(background_image_filename, overlay_text_string, overlay_image_filename=None,
+def overlay_text(background_image_filename, overlay_text_string, output_file, overlay_image_filename=None,
                  end_height=1080, end_width=1920, horizontal_centering=True):
     assert isinstance(end_width, int) and isinstance(end_height, int)
     assert isinstance(overlay_text_string, str)
+    logger.info(f'background_image_filename: {background_image_filename}')
     assert os.path.exists(background_image_filename)
     font_fname = os.getenv('FONT_FILE')
 
@@ -79,15 +80,24 @@ def overlay_text(background_image_filename, overlay_text_string, overlay_image_f
 
     background_image_resized = None
     if background_image_size_ratio_width_per_height < resulting_imagesize_ratio_width_per_height:
+        logger.info('background_image_size_ratio_width_per_height < resulting_imagesize_ratio_width_per_height')
+        logger.info(
+            '(round(resulting_image_height * background_image_size_ratio_width_per_height), resulting_image_height)')
+        logger.info(
+            (round(resulting_image_height * background_image_size_ratio_width_per_height), resulting_image_height))
         background_image_resized = background_image.resize(
             (round(resulting_image_height * background_image_size_ratio_width_per_height), resulting_image_height),
             Image.ANTIALIAS).copy()
     elif background_image_size_ratio_width_per_height > resulting_imagesize_ratio_width_per_height:
+        logger.info('background_image_size_ratio_width_per_height > resulting_imagesize_ratio_width_per_height')
+        logger.info('resulting image width, resulting_image_height / background_image_size_ratio_width_per_height)')
+        logger.info(resulting_image_width, resulting_image_height / background_image_size_ratio_width_per_height)
         background_image_resized = background_image.resize(
             (resulting_image_width, resulting_image_height / background_image_size_ratio_width_per_height),
             Image.ANTIALIAS).copy()
         raise NotImplementedError('')
     elif background_image_size_ratio_width_per_height == resulting_imagesize_ratio_width_per_height:
+        logger.info('background_image_size_ratio_width_per_height == resulting_imagesize_ratio_width_per_height')
         background_image_resized = background_image.resize((resulting_image_width, resulting_image_height),
                                                            Image.ANTIALIAS).copy()
         raise NotImplementedError('')
@@ -139,14 +149,14 @@ def overlay_text(background_image_filename, overlay_text_string, overlay_image_f
 
     if overlay_image_filename is not None:
         empty_background_end_size.paste(overlay_image_resized, (
-        empty_background_end_size.size[0] - overlay_image_resized.size[0], image_border_width['t']))
+            empty_background_end_size.size[0] - overlay_image_resized.size[0], image_border_width['t']))
 
-    empty_background_end_size.save('test2.png')
-    print('done')
+    empty_background_end_size.save(output_file)
+    logger.info(f'Output file created: "{output_file}"')
 
-    background_image.save(os.path.join(os.path.split(background_image_filename)[0], 'background.jpg'))
-    background_image.save(os.path.join(os.path.split(background_image_filename)[0],
-                                       datetime_string() + '_' + os.path.split(background_image_filename)[1]))
+    # background_image.save(os.path.join(os.path.split(background_image_filename)[0], 'background.jpg'))
+    # background_image.save(os.path.join(os.path.split(background_image_filename)[0],
+    #                                    datetime_string() + '_' + os.path.split(background_image_filename)[1]))
 
 
 def update_wallpaper():
