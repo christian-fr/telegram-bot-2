@@ -45,7 +45,7 @@ from telegram.ext import (
     CallbackContext,
 )
 
-import overlay_image_renderer.OverlayImageRenderer
+import overlayImageRenderer.OverlayImageRenderer
 
 # Enable logging
 logging.basicConfig(
@@ -113,8 +113,8 @@ def photo(update: Update, context: CallbackContext) -> int:
     photo_file.download('background.jpg')
     logger.info("Picture uploaded!")
     tmp_text = user.first_name
-    overlay_image_renderer.OverlayImageRenderer.overlay_text(background_image_filename='../background.jpg',
-                                                             overlay_text_string=tmp_text)
+    overlayImageRenderer.OverlayImageRenderer.overlay_text(background_image_filename='../background.jpg',
+                                                           overlay_text_string=tmp_text)
     update_wallpaper()
 
     update.message.reply_text(
@@ -129,8 +129,8 @@ def description(update: Update, context: CallbackContext) -> int:
     logger.info("notes: %s, user: %s", update.message.text, user.first_name)
     tmp_text = user.first_name + ': ' + update.message.text
     update.message.reply_text('Notes successfully added.')
-    overlay_image_renderer.OverlayImageRenderer.overlay_text(background_image_filename='../background.jpg',
-                                                             overlay_text_string=tmp_text)
+    overlayImageRenderer.OverlayImageRenderer.overlay_text(background_image_filename='../background.jpg',
+                                                           overlay_text_string=tmp_text)
     update_wallpaper()
     return ConversationHandler.END
 

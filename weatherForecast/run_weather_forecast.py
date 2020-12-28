@@ -8,8 +8,8 @@ __name__ = "WeatherForeCastCreator"
 import json
 import os
 
-import weather_forecast.ForecastRenderer
-import weather_forecast.OpenweatherAPIClient
+import weatherForecast.ForecastRenderer
+import weatherForecast.OpenweatherAPIClient
 
 svg_template_file = os.path.join(os.getcwd(), 'svg_template/weather-script-preprocess_inverted.svg')
 
@@ -32,15 +32,15 @@ CITY_ID = tmp_key_dict['CITY_ID']
 # CITY_ID = os.getenv('CITY_ID')
 
 
-openweather_forecast_object = weather_forecast.OpenweatherAPIClient.OpenWeatherAPICLient(
+openweather_forecast_object = weatherForecast.OpenweatherAPIClient.OpenWeatherAPICLient(
     weather_api_key=WEATHER_API_KEY,
     latitude_str=LATITUDE,
     longitude_str=LONGITUDE,
     city_id_str=CITY_ID)
 
-weather_forecast_object = weather_forecast.ForecastRenderer.WeatherForecastObject(
+weather_forecast_object = weatherForecast.ForecastRenderer.WeatherForecastObject(
     openweather_daily_response=openweather_forecast_object, longitude_str=LONGITUDE, latitude_str=LATITUDE)
 
-weather_forecast_renderer = weather_forecast.ForecastRenderer.ForecastRenderer(
+weather_forecast_renderer = weatherForecast.ForecastRenderer.ForecastRenderer(
     svg_template_file=svg_template_file,
     weather_forecast_object=weather_forecast_object)

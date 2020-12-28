@@ -1,4 +1,4 @@
-/telegram_bot/token
+/telegramBot/token
 /.idea
 /venv_new/
-/weather_forecast/openweather_api_key.txt
+/weatherForecast/openweather_api_key.txt

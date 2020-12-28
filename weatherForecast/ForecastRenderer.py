@@ -8,12 +8,16 @@ __name__ = "ForeCastRenderer"
 
 import codecs
 import os
-import datetime
+# import datetime
 import cairosvg
 import errno
 import datetime
-import pytz
-from tzwhere import tzwhere
+# import pytz
+# from tzwhere import tzwhere
+import logging
+
+log = logging.getLogger(__name__)
+log.info('ForecastRenderer loaded')
 
 
 def datetime_from_unix_timestamp(unix_timestamp):
@@ -38,17 +42,19 @@ class WeatherForecastObject:
             openweather_daily_response.resp_onecall_forecast_dict)
         self.dates = list(self.daily_forecasts_dict.keys())
         self.dates.sort()
-        self.check_if_current_date_fits_first_day_of_forecast(longitude_str=longitude_str, latitude_str=latitude_str)
+        self.latitude_str = latitude_str
+        self.longitude_str = longitude_str
+        # self.check_if_current_date_fits_first_day_of_forecast(longitude_str=longitude_str, latitude_str=latitude_str)
 
-    @staticmethod
-    def check_if_current_date_fits_first_day_of_forecast(longitude_str, latitude_str):
-        tzwhere_obj = tzwhere.tzwhere()
-        timezone_str = tzwhere_obj.tzNameAt(latitude=float(latitude_str), longitude=float(longitude_str))
-
-        timezone = pytz.timezone(timezone_str)
-        dt = datetime.datetime.now()
-        timezone.utcoffset(dt)
-        pass
+    # @staticmethod
+    # def check_if_current_date_fits_first_day_of_forecast(longitude_str, latitude_str):
+    #     tzwhere_obj = tzwhere.tzwhere()
+    #     timezone_str = tzwhere_obj.tzNameAt(latitude=float(latitude_str), longitude=float(longitude_str))
+    #
+    #     timezone = pytz.timezone(timezone_str)
+    #     dt = datetime.datetime.now()
+    #     timezone.utcoffset(dt)
+    #     pass
 
     @staticmethod
     def create_dict_for_daily_forecast(response):

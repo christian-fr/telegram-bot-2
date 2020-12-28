@@ -7,7 +7,9 @@ __name__ = "OpenWeatherAPIClient"
 
 import requests
 import json
+import logging
 
+logger = logging.getLogger(__name__)
 
 class OpenWeatherAPICLient:
     def __init__(self, weather_api_key, latitude_str, longitude_str, city_id_str):

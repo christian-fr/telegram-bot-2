@@ -18,10 +18,6 @@ from subprocess import call
 
 from datetime import datetime
 
-# Enable logging
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
 
 logger = logging.getLogger(__name__)
 
@@ -156,12 +152,12 @@ def update_wallpaper():
 # if __name__ == '__main__':
 #     overlay_text(background_image_filename=os.path.join(os.getcwd(), 'pictures', 'JF4_011336.jpg'),
 #                  overlay_text_string='xxx',
-#                  overlay_image_filename=os.path.join(os.getcwd(), 'weather_forecast', 'output', 'forecast_output.png'))
+#                  overlay_image_filename=os.path.join(os.getcwd(), 'weatherForecast', 'output', 'forecast_output.png'))
 #
 # else:
 #     overlay_text(background_image_filename='/home/a/PycharmProjects/telegram-bot/pictures/JF4_011336.jpg',
 #                  overlay_text_string='xxx',
-#                  overlay_image_filename='/home/a/PycharmProjects/telegram-bot/weather_forecast/output/forecast_output.png')
+#                  overlay_image_filename='/home/a/PycharmProjects/telegram-bot/weatherForecast/output/forecast_output.png')
 #
 #
 
