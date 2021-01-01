@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <style>
+
+        :root {
+            --border: 10px;
+            --background-color: rgba(0, 0, 0, 1)
+        }
+
+        .itemLeft {
+            grid-area: left;
+        }
+
+        .itemRight {
+            grid-area: right;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+            'left right';
+            grid-gap: var(--border);
+            background-color: var(--background-color);
+            padding: var(--border);
+            justify-items: center !important;
+            align-items: center;
+        }
+
+        .grid-container > div {
+            background-color: var(--background-color);
+            color: rgba(0, 0, 0, 1);
+            padding: 0 0;
+            font-size: 30px;
+            text-align: center;
+            width: 100vw;
+            height: 100vh !important;
+        }
+
+        .itemLeft {
+            display: block;
+            width: calc(65vw - 1*var(--border)) !important;
+            height: 100vh !important;
+            margin: auto;
+        }
+
+        .itemRight {
+            display: block;
+            width: calc(35vw - 1*var(--border)) !important;
+            /*max-width: calc(35vw - 1*var(--border)) !important;*/
+            height: 100vh !important;
+        }
+
+        .img_left {
+            display: block;
+            max-width: calc(65vw - var(--border));
+            max-height: calc(100vh - 4 * (var(--border)));
+            width: auto;
+            height: auto;
+            margin: auto;
+        }
+
+        .img_right {
+            display: block;
+            max-width: calc(30vw - var(--border));
+            max-height: calc(100vh - 4 * (var(--border)));
+            width: auto;
+            height: auto;
+            margin-right: auto;
+        }
+
+        body {
+            background-color: rgba(0, 0, 0, 1);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="grid-container">
+    <!-- <div class="item1">Header</div> -->
+    <!-- <div class="item2">Menu</div> -->
+    <div class="itemLeft">
+        <img src="../pictures/input.png" class="img_left" alt="picture">
+    </div>
+
+    <div class="itemRight">
+        <img src="../output/forecast_output.png" class="img_right" alt="picture">
+    </div>
+</div>
+
+
+<!--<div class="grid-container">-->
+<!--    <div class="itemLeft">-->
+<!--        <img src="test4.png" class="img_left">-->
+<!--    </div>-->
+
+<!--    <div class="itemRight">-->
+<!--        <img src="test4.png" class="img_right">-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+<!--<div class="grid-container">-->
+<!--    <div class="itemLeft">-->
+<!--        <img src="test4.png" class="img_left">-->
+<!--    </div>-->
+
+<!--    <div class="itemRight">-->
+<!--        <img src="test1.png" class="img_right">-->
+<!--    </div>-->
+<!--</div>-->
+
+</body>
+</html>
