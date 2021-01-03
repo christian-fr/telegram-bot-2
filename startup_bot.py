@@ -46,9 +46,10 @@ if __name__ == '__main__':
     # update_wallpaper()
 
     asyncio.get_event_loop().run_until_complete(
-        pyppeteerHeadlessScreenshotter.pyppeteer_screenshotter.pyppeteer_main(url_str=os.path.abspath(
+        pyppeteerHeadlessScreenshotter.pyppeteer_screenshotter.pyppeteer_main(
+            executable_path='/usr/bin/chromium-browser', url_str=os.path.abspath(
             os.path.join(os.path.dirname(__file__), './pyppeteerHeadlessScreenshotter/template.html')),
-                                                                              resolution_dict={'width': 1600,
+            resolution_dict={'width': 1600,
                                                                                                'height': 900},
-                                                                              output_file='pictures/background_final.png'))
+            output_file='pictures/background_final.png'))
     exit()
