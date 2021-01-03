@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # import sys
+import sys
 import os
 from pathlib import Path
 import logging.config
@@ -52,4 +53,4 @@ if __name__ == '__main__':
             resolution_dict={'width': 1600,
                                                                                                'height': 900},
             output_file='pictures/background_final.png'))
-    exit()
+    sys.exit()
