@@ -11,11 +11,11 @@ logger = logging.getLogger(__name__)
 logger.info('Starting up.')
 
 
-async def pyppeteer_main(url_str, resolution_dict, output_file):
+async def pyppeteer_main(executable_path, url_str, resolution_dict, output_file):
     assert isinstance(url_str, str)
     assert isinstance(resolution_dict, dict)
     assert isinstance(output_file, str) or isinstance(output_file, Path)
-    browser = await launch(headless=True)
+    browser = await launch(headless=True, executablePath=executable_path)
     page = await browser.newPage()
     await page.setViewport(resolution_dict)
     # await page.setViewport({'width': 1920, 'height': 1080})
