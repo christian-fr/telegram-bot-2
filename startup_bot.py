@@ -4,6 +4,8 @@ import os
 from pathlib import Path
 import logging.config
 from subprocess import call
+import pyppeteerHeadlessScreenshotter.pyppeteer_screenshotter
+import asyncio
 
 config_filename = Path(os.path.abspath(os.path.join(os.path.dirname(__file__), 'config', 'logger.config')))
 assert config_filename.exists()
@@ -28,18 +30,25 @@ pictures_path = os.path.abspath(os.path.join(os.path.dirname(__file__), './pictu
 background_file = Path(pictures_path, 'background.png')
 wallpaper_changer_file = os.path.abspath(os.path.join(os.path.dirname(__file__), './wallpaper_changer.sh'))
 
-def update_wallpaper():
-    logger.info(f'walpaper changer script: "{wallpaper_changer_file}"')
-    logger.info(f'changing wallpaper to: "{background_file}"')
-    call(['bash', '-c', f"'{wallpaper_changer_file}'", f"'{background_file}'"])
+# def update_wallpaper():
+#     logger.info(f'walpaper changer script: "{wallpaper_changer_file}"')
+#     logger.info(f'changing wallpaper to: "{background_file}"')
+#     call(['bash', '-c', f"'{wallpaper_changer_file}'", f"'{background_file}'"])
 
 
 if __name__ == '__main__':
     pass
-    OverlayImageRenderer.overlay_text(background_image_filename=Path(pictures_path, 'input.png'),
-                                      overlay_text_string='xxx',
-                                      overlay_image_filename=Path(output_path, 'forecast_output.png'),
-                                      output_file=background_file)
+    # OverlayImageRenderer.overlay_text(background_image_filename=Path(pictures_path, 'input.png'),
+    #                                   overlay_text_string='xxx',
+    #                                   overlay_image_filename=Path(output_path, 'forecast_output.png'),
+    #                                   output_file=background_file)
 
-    update_wallpaper()
+    # update_wallpaper()
+
+    asyncio.get_event_loop().run_until_complete(
+        pyppeteerHeadlessScreenshotter.pyppeteer_screenshotter.pyppeteer_main(url_str=os.path.abspath(
+            os.path.join(os.path.dirname(__file__), './pyppeteerHeadlessScreenshotter/template.html')),
+                                                                              resolution_dict={'width': 1600,
+                                                                                               'height': 900},
+                                                                              output_file='pictures/background_final.png'))
     exit()
