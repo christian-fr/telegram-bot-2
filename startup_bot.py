@@ -39,7 +39,7 @@ wallpaper_changer_file = os.path.abspath(os.path.join(os.path.dirname(__file__),
 
 if __name__ == '__main__':
     pass
-    # OverlayImageRenderer.overlay_text(background_image_filename=Path(pictures_path, 'input.png'),
+    # OverlayImageRenderer.overlay_text(background_image_filename=Path(pictures_path, 'background_input.png'),
     #                                   overlay_text_string='xxx',
     #                                   overlay_image_filename=Path(output_path, 'forecast_output.png'),
     #                                   output_file=background_file)
