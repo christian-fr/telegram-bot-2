@@ -3,6 +3,10 @@
 <head>
     <style>
 
+        body {
+          margin: 0;
+        }
+
         :root {
             --border: 10px;
             --background-color: rgba(0, 0, 0, 1)
@@ -22,7 +26,6 @@
             'left right';
             grid-gap: var(--border);
             background-color: var(--background-color);
-            padding: var(--border);
             justify-items: center !important;
             align-items: center;
         }
@@ -35,6 +38,8 @@
             text-align: center;
             width: 100vw;
             height: 100vh !important;
+            box-sizing: border-box;
+            padding: var(--border);
         }
 
         .itemLeft {
@@ -54,7 +59,7 @@
         .img_left {
             display: block;
             max-width: calc(65vw - var(--border));
-            max-height: calc(100vh - 4 * (var(--border)));
+            max-height: calc(100vh - 2 * (var(--border)));
             width: auto;
             height: auto;
             margin: auto;
@@ -63,7 +68,7 @@
         .img_right {
             display: block;
             max-width: calc(30vw - var(--border));
-            max-height: calc(100vh - 4 * (var(--border)));
+            max-height: calc(100vh - 2 * (var(--border)));
             width: auto;
             height: auto;
             margin-right: auto;
