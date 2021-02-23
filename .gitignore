@@ -1,5 +1,7 @@
 /telegramBot/token
+/.idea/*
 /.idea
 /venv_new/
 /weatherForecast/openweather_api_key.txt
 /signalBot/secret
+/signalBot/*.json
