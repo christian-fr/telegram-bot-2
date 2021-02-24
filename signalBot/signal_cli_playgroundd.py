@@ -21,7 +21,9 @@ secret = Path('secret').read_text()
 phonebook_dict = json.loads(Path('phonebook').read_text())
 
 # f
-font_file = Path('../overlayImageRenderer/segoeui.ttf')
+# font_file = Path('../overlayImageRenderer/segoeui.ttf')
+# font_file = Path('/home/christian/.local/share/fonts/TwitterColorEmoji-SVGinOT.ttf')
+font_file = Path('/usr/share/fonts/truetype/ttf-bitstream-vera/VeraMoIt.ttf')
 assert font_file.exists()
 
 
@@ -97,6 +99,8 @@ if json_data_list != []:
 
     sender = last_message_with_attachment['sender']
     text = last_message_with_attachment['envelope']['dataMessage']['message']
+    text_escaped = json.dumps(text)
+
     attachment_ext, attachment_path = last_message_with_attachment['attachment_path_str_list'][0]
 
     allowed_extensions_list = ['.jpg', '.jpeg', '.png', '.svg', '.tif']
@@ -114,3 +118,4 @@ if json_data_list != []:
                                           overlay_text_string=full_text,
                                           output_file=background_file_path, font_file=font_file.as_posix())
 
+        run_signal_cli_command([''])
