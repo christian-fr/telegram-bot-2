@@ -37,7 +37,8 @@ class Settings(BaseSettings):
     )
     signal_upload_path: str = f"{signal_config_path}/uploads/"
     signal_attachments_path: str = f"{signal_config_path}/attachments/"
-    signal_cli_executable: str = os.environ.get('SIGNAL_EXEC_PATH', os.path.expanduser('~/signal-cli_built/bin/signal-cli'))
+    signal_cli_executable: str = os.environ.get('SIGNAL_EXEC_PATH',
+                                                os.path.expanduser('~/signal-cli_built/bin/signal-cli'))
     signal_cli_phonebook: dict = phonebook_dict
     assert Path(signal_cli_executable).exists()
     assert Path(signal_config_path).exists()
@@ -86,11 +87,12 @@ if json_data_list != []:
             for attachment_item in attachment:
                 attachment_path = Path(settings.signal_attachments_path, attachment_item['id'])
                 if attachment_path.exists():
-                    attachment_path_str_list.append((os.path.splitext(attachment_item['filename'])[1], attachment_path.as_posix()))
-        db.insert({'timestamp': envelope_dict['envelope']['timestamp'], 'timestamp_str': timestamp_str, 'sender': sender,
-                   'has_attachment': bool(attachment), 'attachment_path_str_list': attachment_path_str_list,
-                   'envelope': envelope_dict['envelope']})
-
+                    attachment_path_str_list.append(
+                        (os.path.splitext(attachment_item['filename'])[1], attachment_path.as_posix()))
+        db.insert(
+            {'timestamp': envelope_dict['envelope']['timestamp'], 'timestamp_str': timestamp_str, 'sender': sender,
+             'has_attachment': bool(attachment), 'attachment_path_str_list': attachment_path_str_list,
+             'envelope': envelope_dict['envelope']})
 
     Message = Query()
     messages_with_attachment_list = db.search(Message.has_attachment == True)
@@ -110,7 +112,7 @@ if json_data_list != []:
 
         full_text = f'{sender_name}: {text}'
 
-        background_file_path = os.path.expanduser('~/background'+attachment_ext)
+        background_file_path = os.path.expanduser('~/background' + attachment_ext)
 
         shutil.copyfile(attachment_path, background_file_path)
 
@@ -118,4 +120,7 @@ if json_data_list != []:
                                           overlay_text_string=full_text,
                                           output_file=background_file_path, font_file=font_file.as_posix())
 
-        run_signal_cli_command([''])
+        # run_signal_cli_command(['-u', settings.signal_number, 'send', '-m', '"Data received. This is how the picture will look like."', sender])
+
+        response = run_signal_cli_command(['-u', settings.signal_number, 'send', '-a', background_file_path, '-m', "Picture_Preview", sender])
+        print('test')

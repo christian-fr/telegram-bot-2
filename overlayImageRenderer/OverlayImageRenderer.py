@@ -62,40 +62,24 @@ def overlay_text(background_image_filename, overlay_text_string, output_file, fo
 
     paste_x = round(background_image.size[0]*0.05)
     paste_y = round(background_image.size[1]-rendered_text.size[1]-background_image.size[1]*0.05)
+    logger.info("text position: {0}px, {1}px".format(draw_x, draw_y))
 
-    for jitter in [0.005, 0.003, 0.002]:
+    for jitter in [0.002, 0.001]:
         background_image.paste(shadow_outline, (round(paste_x+(max(background_image.size)*jitter)), round(paste_y+(max(background_image.size)*jitter))), shadow_outline)
         background_image.paste(shadow_outline, (round(paste_x-(max(background_image.size)*jitter)), round(paste_y-(max(background_image.size)*jitter))), shadow_outline)
         background_image.paste(shadow_outline, (round(paste_x+(max(background_image.size)*jitter)), round(paste_y-(max(background_image.size)*jitter))), shadow_outline)
         background_image.paste(shadow_outline, (round(paste_x-(max(background_image.size)*jitter)), round(paste_y+(max(background_image.size)*jitter))), shadow_outline)
 
-        background_image.paste(shadow_outline, (round(paste_x+(max(background_image.size)*jitter)), paste_y), shadow_outline)
-        background_image.paste(shadow_outline, (round(paste_x-(max(background_image.size)*jitter)), paste_y), shadow_outline)
-
-        background_image.paste(shadow_outline, (paste_x, round(paste_y+(max(background_image.size)*jitter))), shadow_outline)
-        background_image.paste(shadow_outline, (paste_x, round(paste_y-(max(background_image.size)*jitter))), shadow_outline)
+    for jitter in [0.0025]:
+        background_image.paste(shadow_outline, (paste_x, round(paste_y + (max(background_image.size) * jitter))), shadow_outline)
+        background_image.paste(shadow_outline, (paste_x, round(paste_y - (max(background_image.size) * jitter))), shadow_outline)
+        background_image.paste(shadow_outline, (round(paste_x + (max(background_image.size) * jitter)), paste_y), shadow_outline)
+        background_image.paste(shadow_outline, (round(paste_x - (max(background_image.size) * jitter)), paste_y), shadow_outline)
 
     background_image.paste(rendered_text, (paste_x, paste_y), rendered_text)
-    background_image.show()
-
-    logger.info("text position: {0}px, {1}px".format(draw_x, draw_y))
-
-    draw.text((draw_x-3, draw_y), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x+3, draw_y), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x, draw_y-3), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x, draw_y+3), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x-2, draw_y), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x+2, draw_y), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x, draw_y-2), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x, draw_y+2), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x-1, draw_y), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x+1, draw_y), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x, draw_y-1), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x, draw_y+1), overlay_text_string, font=font, fill=shadow_color)
-    draw.text((draw_x, draw_y), overlay_text_string, font=font, fill=text_color)
+    # background_image.show()
 
     background_image.save(output_file)
-
 
 
 def update_wallpaper():

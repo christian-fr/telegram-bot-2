@@ -94,13 +94,13 @@ class EmojiUtils:
 
 # ----------#
 
-def emoji_wrapper(text, text_wrap=70,
+def emoji_wrapper(text, text_wrap=40,
                   font_size=250,
                   text_color=(0, 0, 0),
                   shadow_color=(255, 255, 255),
                   font_path=r'/usr/share/fonts/truetype/ttf-bitstream-vera/Vera.ttf',
                   emoji_style="google",
-                  image_size=(5000, 5000)):
+                  image_size=(7000, 7000)):
     # ----------#
 
     # ----------#
