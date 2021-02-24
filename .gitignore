@@ -5,3 +5,4 @@
 /weatherForecast/openweather_api_key.txt
 /signalBot/secret
 /signalBot/*.json
+/signalBot/phonebook
