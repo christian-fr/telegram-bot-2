@@ -19,7 +19,7 @@ logger.info('Starting up.')
 
 import weatherForecast
 # from weatherForecast import ForecastRenderer, OpenweatherAPIClient
-from overlayImageRenderer import OverlayImageRenderer
+# from overlayImageRenderer import OverlayImageRenderer
 
 # import telegramBot
 # from telegramBot import telegram-bot # usw.usf.
