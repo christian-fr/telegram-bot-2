@@ -1,46 +1,33 @@
-__author__ = "Christian Friedrich"
-__maintainer__ = "Christian Friedrich"
-__license__ = "MIT"
-__version__ = "0.0.1"
-__status__ = "Prototype"
-__name__ = "WeatherForeCastCreator"
-
-import json
+#!/usr/bin/env python
 import os
+from pathlib import Path
 
-import weatherForecast.ForecastRenderer
 import weatherForecast.OpenweatherAPIClient
-
-svg_template_file = os.path.join(os.getcwd(), 'svg_template/weather-script-preprocess_inverted.svg')
-
-key_file = os.path.join(os.getcwd(), 'openweather_api_key.txt')
-with open(key_file, 'r') as f:
-    tmp_json_string = f.read()
-
-tmp_key_dict = json.loads(tmp_json_string)
-
-WEATHER_API_KEY = tmp_key_dict['WEATHER_API_KEY']
-LATITUDE = tmp_key_dict['LATITUDE']
-LONGITUDE = tmp_key_dict['LONGITUDE']
-CITY_ID = tmp_key_dict['CITY_ID']
-
-# WEATHER_API_KEY = os.getenv('WEATHER_API_KEY')
-# LATITUDE = os.getenv('LATITUDE')
-# LONGITUDE = os.getenv('LONGITUDE')
-# BOT_API_KEY = os.getenv('BOT_API_KEY')
-# CHANNEL_NAME = os.getenv('CHANNEL_NAME')
-# CITY_ID = os.getenv('CITY_ID')
+import weatherForecast.ForecastRenderer
+import logging
 
 
-openweather_forecast_object = weatherForecast.OpenweatherAPIClient.OpenWeatherAPICLient(
-    weather_api_key=WEATHER_API_KEY,
-    latitude_str=LATITUDE,
-    longitude_str=LONGITUDE,
-    city_id_str=CITY_ID)
+def get_weather_forecast():
+    logger = logging.getLogger(__name__)
+    logger.info('Loading weatherForecast')
 
-weather_forecast_object = weatherForecast.ForecastRenderer.WeatherForecastObject(
-    openweather_daily_response=openweather_forecast_object, longitude_str=LONGITUDE, latitude_str=LATITUDE)
+    svg_template_path = os.path.abspath(os.path.join(os.path.dirname(__file__), './svg_template'))
 
-weather_forecast_renderer = weatherForecast.ForecastRenderer.ForecastRenderer(
-    svg_template_file=svg_template_file,
-    weather_forecast_object=weather_forecast_object)
+    svg_template_file = Path(svg_template_path, 'weather-script-preprocess_inverted.svg')
+    logger.info('trying to load svg template file')
+    if not svg_template_file.exists():
+        logger.error(f'SVG template file not found: "{svg_template_file}"')
+        raise FileNotFoundError(f'SVG template file not found: "{svg_template_file}"')
+
+    logger.info('firing up weatherForecast.OpenweatherAPIClient.OpenWeatherAPICLient')
+
+    openweather_forecast_object = weatherForecast.OpenweatherAPIClient.OpenWeatherAPIClient()
+
+    logger.info('firing up weatherForecast.OpenweatherAPIClient.OpenWeatherAPIClient')
+    weather_forecast_object = weatherForecast.ForecastRenderer.WeatherForecastObject(
+        openweather_daily_response=openweather_forecast_object)
+
+    logger.info('firing up weatherForecast.OpenweatherAPIClient.OpenWeatherAPIClient')
+    weather_forecast_renderer = weatherForecast.ForecastRenderer.ForecastRenderer(
+        svg_template_file=svg_template_file,
+        weather_forecast_object=weather_forecast_object)

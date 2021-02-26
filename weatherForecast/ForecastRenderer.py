@@ -37,7 +37,7 @@ def icon_matching_openweather_map(input_icon_code):
 
 
 class WeatherForecastObject:
-    def __init__(self, openweather_daily_response, latitude_str, longitude_str):
+    def __init__(self, openweather_daily_response, latitude_str=None, longitude_str=None):
         self.daily_forecasts_dict = self.create_dict_for_daily_forecast(
             openweather_daily_response.resp_onecall_forecast_dict)
         self.dates = list(self.daily_forecasts_dict.keys())
