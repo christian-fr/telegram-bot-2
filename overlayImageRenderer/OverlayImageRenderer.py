@@ -46,8 +46,8 @@ def overlay_text(background_image_filename, overlay_text_string, output_file, fo
     rendered_text, shadow_outline = emojiWrapper.emoji_wrapper(text=overlay_text_string,
                                                                text_color=text_color,
                                                                shadow_color=shadow_color)
-    rendered_text.thumbnail((background_image.size[0]*.8, background_image.size[1]*.2))
-    shadow_outline.thumbnail((background_image.size[0]*.8, background_image.size[1]*.2))
+    rendered_text.thumbnail((background_image.size[0]*.2, background_image.size[1]*.2))
+    shadow_outline.thumbnail((background_image.size[0]*.2, background_image.size[1]*.2))
 
     paste_x = round(background_image.size[0]*0.05)
     paste_y = round(background_image.size[1]-rendered_text.size[1]-background_image.size[1]*0.05)
