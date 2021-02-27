@@ -1,7 +1,7 @@
 #!/bin/bash
 
-pid=$(cat /tmp/telegram-bot.pid)
+pid=$(cat /tmp/signal-bot.pid)
 if [ "$(ps -o comm= -p "$pid")" = "python3" ]; then
     kill $pid
-else echo "telegram-bot is dead!"
+else echo "signal-bot is dead!"
 fi

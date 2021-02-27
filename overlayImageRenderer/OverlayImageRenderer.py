@@ -5,20 +5,10 @@ __version__ = "0.0.1"
 __status__ = "Prototype"
 __name__ = "OverlayImageRenderer"
 
-
-
-
-# import numpy as np
-# import PIL
 import PIL.Image as Image
-import PIL.ImageDraw as ImageDraw
 import PIL.ImageFont as ImageFont
 import os
-from pathlib import Path
 import logging
-
-from subprocess import call
-
 from datetime import datetime
 from . import emojiWrapper
 
@@ -44,7 +34,6 @@ def overlay_text(background_image_filename, overlay_text_string, output_file, fo
     logger.info("width: {0}px, height: {1}px of uploaded picture".format(str(w), str(h)))
     font_size = round(min(w / 20, h / 20))
     logger.info("font size: " + str(font_size))
-    #draw = ImageDraw.Draw(background_image)
 
     font = ImageFont.truetype(font_fname, font_size)
     text_color = (0, 0, 0)
@@ -82,16 +71,7 @@ def overlay_text(background_image_filename, overlay_text_string, output_file, fo
     background_image.save(output_file)
 
 
-def update_wallpaper():
-    call(['bash', '-c', "'/home/pi/lubuntu-wp-changer'"])
-
-
 if __name__ == '__main__':
     logger.error('Tried to run python script standalone - not yet implemented.')
     raise NotImplementedError('running standalone is not yet implemented')
-    pass
-    # overlay_text(background_image_filename=os.path.join(os.getcwd(), 'pictures', 'JF4_011336.jpg'),
-    #              overlay_text_string='xxx',
-    #              overlay_image_filename=os.path.join(os.getcwd(), 'weatherForecast', 'output', 'forecast_output.png'))
-else:
-    pass
+
