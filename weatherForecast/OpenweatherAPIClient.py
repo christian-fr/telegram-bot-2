@@ -42,4 +42,4 @@ class OpenWeatherAPIClient:
         self.resp_onecall_forecast_dict['longitude_str'] = openweather_settings.longitude
 
 
-OpenWeatherAPIClient(OpenWeatherSettings())
+# OpenWeatherAPIClient(OpenWeatherSettings())

@@ -118,14 +118,14 @@ class ForecastRenderer:
         self.svg_template_file = svg_template_file
         assert isinstance(weather_forecast_object, WeatherForecastObject)
         if forecast_output_path is None:
-            forecast_output_path = os.path.join(os.getcwd(), 'output')
+            forecast_output_path = os.path.join(os.getcwd(), 'output_forecast')
         self.svg_template = self.init_svg()
         self.weather_forecast_object = weather_forecast_object
         self.dates = weather_forecast_object.dates
         self.dates.sort()
         self.day_one = str(self.dates[0])
         self.svg_modified = self.process_svg(self.svg_template)
-        self.prepare_output_folder(str(os.path.join(os.getcwd(), 'output')))
+        self.prepare_output_folder(str(os.path.join(os.getcwd(), 'output_forecast')))
         self.write_svg(self.svg_modified, os.path.join(forecast_output_path, forecast_output_filename))
         self.convert_svg_into_png(os.path.join(forecast_output_path, forecast_output_filename))
 

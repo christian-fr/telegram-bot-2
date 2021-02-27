@@ -28,6 +28,7 @@ def get_weather_forecast():
         openweather_daily_response=openweather_forecast_object)
 
     logger.info('firing up weatherForecast.OpenweatherAPIClient.OpenWeatherAPIClient')
-    weather_forecast_renderer = weatherForecast.ForecastRenderer.ForecastRenderer(
+    weatherForecast.ForecastRenderer.ForecastRenderer(
         svg_template_file=svg_template_file,
-        weather_forecast_object=weather_forecast_object)
+        weather_forecast_object=weather_forecast_object,
+        forecast_output_path=os.path.join(os.getcwd(), 'output_forecast'))
