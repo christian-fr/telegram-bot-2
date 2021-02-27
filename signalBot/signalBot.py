@@ -35,7 +35,7 @@ class Settings(BaseSettings):
     signal_number = [entry[2][0] for entry in os.walk(Path(signal_config_path, 'data')) if len(entry[2]) > 0][0]
 
     # load phonebook
-    signal_cli_phonebook: dict = json.loads(Path(signal_config_path, 'phonebook', 'phonebook.json').read_text())
+    signal_phonebook: dict = json.loads(Path(signal_config_path, 'phonebook', 'phonebook.json').read_text())
     # load secrets (phone number)
     print()
 
@@ -82,8 +82,11 @@ if json_data_list != []:
             for attachment_item in attachment:
                 attachment_path = Path(settings.signal_attachments_path, attachment_item['id'])
                 if attachment_path.exists():
-                    attachment_path_str_list.append(
-                        (os.path.splitext(attachment_item['filename'])[1], attachment_path.as_posix()))
+                    attachment_type: str = envelope['dataMessage']['attachments'][0]['contentType']
+                    if attachment_type.find('image') == 0:
+                        attachment_path_str_list.append(
+                            (attachment_type[attachment_type.find('/')+1:], attachment_path.as_posix()))
+
         db.insert(
             {'timestamp': envelope_dict['envelope']['timestamp'], 'timestamp_str': timestamp_str, 'sender': sender,
              'has_attachment': bool(attachment), 'attachment_path_str_list': attachment_path_str_list,
@@ -102,12 +105,13 @@ if json_data_list != []:
 
     allowed_extensions_list = ['.jpg', '.jpeg', '.png', '.svg', '.tif']
 
-    if attachment_ext in allowed_extensions_list and sender in phonebook_dict.keys():
-        sender_name = phonebook_dict[sender]
+    #if attachment_ext in allowed_extensions_list and sender in settings.signal_phonebook.keys():
+    if sender in settings.signal_phonebook.keys():
+        sender_name = settings.signal_phonebook[sender]
 
         full_text = f'{sender_name}: {text}'
 
-        background_file_path = os.path.expanduser('~/background' + attachment_ext)
+        background_file_path = os.path.expanduser('~/background.' + attachment_ext)
 
         shutil.copyfile(attachment_path, background_file_path)
 
