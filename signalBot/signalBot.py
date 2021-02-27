@@ -1,24 +1,13 @@
 import json
 from tinydb import TinyDB, Query
 from pathlib import Path
-import asyncio
-
 from typing import Any, List
 import subprocess
 import shutil
 import time
-
 from overlayImageRenderer import OverlayImageRenderer
-
 import os
-
 from pydantic import BaseSettings
-
-# load secrets (phone number)
-secret = Path('secret').read_text()
-
-# load phonebook
-phonebook_dict = json.loads(Path('phonebook').read_text())
 
 # font configuration
 font_file = Path('/usr/share/fonts/truetype/liberation2/LiberationMono-Regular.ttf')
@@ -38,10 +27,17 @@ class Settings(BaseSettings):
     signal_attachments_path: str = f"{signal_config_path}/attachments/"
     signal_cli_executable: str = os.environ.get('SIGNAL_EXEC_PATH',
                                                 os.path.expanduser('~/signal-cli_built/bin/signal-cli'))
-    signal_cli_phonebook: dict = phonebook_dict
+
     assert Path(signal_cli_executable).exists()
     assert Path(signal_config_path).exists()
-    signal_number: str = secret
+
+    # load signal number
+    signal_number = [entry[2][0] for entry in os.walk(Path(signal_config_path, 'data')) if len(entry[2]) > 0][0]
+
+    # load phonebook
+    signal_cli_phonebook: dict = json.loads(Path(signal_config_path, 'phonebook', 'phonebook.json').read_text())
+    # load secrets (phone number)
+    print()
 
 
 settings = Settings()
