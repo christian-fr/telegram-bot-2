@@ -20,11 +20,10 @@ secret = Path('secret').read_text()
 # load phonebook
 phonebook_dict = json.loads(Path('phonebook').read_text())
 
-# f
-# font_file = Path('../overlayImageRenderer/segoeui.ttf')
-# font_file = Path('/home/christian/.local/share/fonts/TwitterColorEmoji-SVGinOT.ttf')
-font_file = Path('/usr/share/fonts/truetype/ttf-bitstream-vera/VeraMoIt.ttf')
-assert font_file.exists()
+# font configuration
+font_file = Path('/usr/share/fonts/truetype/liberation2/LiberationMono-Regular.ttf')
+if not font_file.exists():
+    raise FileNotFoundError(f'File {font_file} not found - please specify another font file!')
 
 
 def convert_epoch_timestamp_into_str(epoch_timestamp):
@@ -119,8 +118,6 @@ if json_data_list != []:
         OverlayImageRenderer.overlay_text(background_image_filename=background_file_path,
                                           overlay_text_string=full_text,
                                           output_file=background_file_path, font_file=font_file.as_posix())
-
-        # run_signal_cli_command(['-u', settings.signal_number, 'send', '-m', '"Data received. This is how the picture will look like."', sender])
 
         response = run_signal_cli_command(['-u', settings.signal_number, 'send', '-a', background_file_path, '-m', "Picture_Preview", sender])
         print('test')
