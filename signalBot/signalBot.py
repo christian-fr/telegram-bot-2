@@ -109,7 +109,10 @@ if json_data_list != []:
     if sender in settings.signal_phonebook.keys():
         sender_name = settings.signal_phonebook[sender]
 
-        full_text = f'{sender_name}: {text}'
+        if text is None or text == 'None':
+            full_text = f'{sender_name}'
+        else:
+            full_text = f'{sender_name}: {text}'
 
         background_file_path = os.path.expanduser('~/background.' + attachment_ext)
 
