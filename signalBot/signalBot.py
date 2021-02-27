@@ -124,3 +124,4 @@ if json_data_list != []:
 
         response = run_signal_cli_command(['-u', settings.signal_number, 'send', '-a', background_file_path, '-m', "Picture_Preview", sender])
         print('test')
+
